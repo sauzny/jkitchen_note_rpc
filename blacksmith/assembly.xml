@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+    <id>all</id>
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+
+    <dependencySets>
+        <dependencySet>
+            <useProjectArtifact>true</useProjectArtifact>
+            <outputDirectory>lib</outputDirectory>
+        </dependencySet>
+    </dependencySets>
+
+    <fileSets>
+        <fileSet>
+            <directory>${project.build.directory}/classes</directory>
+            <outputDirectory>conf</outputDirectory>
+            <includes>
+                <include>spring/**</include>
+                <include>properties/config.properties</include>
+				<include>log4j.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/thrift</directory>
+            <outputDirectory>thrift</outputDirectory>
+            <includes>
+                <include>common/*</include>
+                <include>consumer/*</include>
+                <include>provider/*</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/script</directory>
+            <outputDirectory>.</outputDirectory>
+            <includes>
+                <include>jmx-start</include>
+                <include>start</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+
+</assembly>
+
+

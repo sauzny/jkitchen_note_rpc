@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.sauzny</groupId>
+	<artifactId>blacksmith</artifactId>
+	<name>blacksmith</name>
+	<packaging>jar</packaging>
+	<version>v0.0.1</version>
+	<properties>
+	
+		<!-- 字符集 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- 语言版本 -->
+		<java>1.8</java>
+		<scala>2.11</scala>
+		<!-- 其他 -->
+		<spring>5.0.2.RELEASE</spring>
+		<finagle>17.12.0</finagle>
+		<scrooge>17.12.0</scrooge>
+
+	</properties>
+
+	<dependencies>
+
+		<!-- Junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.8</version>
+		</dependency>
+
+		<!-- 从推特的maven仓库中找到jar，放在自己的私服仓库中 -->
+		<!-- jar包加入本地仓库，可查看doc中的文档 -->
+		<!-- <dependency> <groupId>thrift</groupId> <artifactId>libthrift</artifactId> 
+			<version>0.5.0</version> </dependency> -->
+
+		<!-- https://mvnrepository.com/artifact/com.twitter/finagle-thrift -->
+		<dependency>
+			<groupId>com.twitter</groupId>
+			<artifactId>finagle-thriftmux_${scala}</artifactId>
+			<version>${finagle}</version>
+		</dependency>
+
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring}</version>
+		</dependency>
+
+		<!-- spring-aop -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.8.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.8.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>3.2.0</version>
+		</dependency>
+		<!-- spring-aop -->
+
+		<!-- log -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+
+
+		<!-- apache tools -->
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-proxy</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- finagle-thrift_2.10 -->
+		<!-- <dependency> <groupId>com.twitter</groupId> <artifactId>finagle-thrift_2.10</artifactId> 
+			<version>6.35.0</version> maven中央仓库已经不存在0.5.0-1版本的thrift，所以排除 <exclusions> 
+			<exclusion> <groupId>org.apache.thrift</groupId> <artifactId>libthrift</artifactId> 
+			</exclusion> </exclusions> </dependency> -->
+		<!-- <dependency> <groupId>com.twitter</groupId> <artifactId>finagle-zipkin_2.10</artifactId> 
+			<version>6.35.0</version> maven中央仓库已经不存在0.5.0-1版本的thrift，所以排除 <exclusions> 
+			<exclusion> <groupId>org.apache.thrift</groupId> <artifactId>libthrift</artifactId> 
+			</exclusion> </exclusions> </dependency> -->
+
+		<!-- 由于finagle引入的thrift版本过低，需要手动引入commons-lang -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+
+	</dependencies>
+
+
+	<build>
+		<plugins>
+			<!-- 跳过测试 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+
+
+			<!-- 自定义打包 运行方法，编译打包的时候会按照插件指定的配置生成文件 -->
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<descriptors>
+						<descriptor>assembly.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- 编译插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>${java}</source>
+					<target>${java}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.10</version>
+				<executions>
+					<execution>
+						<id>install</id>
+						<phase>install</phase>
+						<goals>
+							<goal>sources</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- twitter 提供的finagle-thrift生成工具 -->
+			<plugin>
+				<groupId>com.twitter</groupId>
+				<artifactId>scrooge-maven-plugin</artifactId>
+				<version>${scrooge}</version>
+
+				<!-- 配置 -->
+				<configuration>
+
+					<!-- default is scala -->
+					<language>java</language>
+
+					<!-- thrift文件目录 -->
+					<thriftSourceRoot>src/main/thrift</thriftSourceRoot>
+
+					<!-- java文件生成的目录 -->
+					<!-- <outputDirectory>src/main/thrift/gen-java</outputDirectory> -->
+					<outputDirectory>/src/main/java/finagle/thrift</outputDirectory>
+
+					<thriftOpts>
+						<!-- add other Scrooge command line options using thriftOpts -->
+						<thriftOpt>--finagle</thriftOpt>
+						<!--<thriftOpt>\-\-ostrich</thriftOpt> -->
+					</thriftOpts>
+					<!-- tell scrooge to extract thrifts from these artifacts -->
+					<dependencyIncludes>
+						<include>event-logger-thrift</include>
+					</dependencyIncludes>
+				</configuration>
+
+				<!-- 执行，依赖下方的pluginManagement -->
+				<!-- install 的时候 ， 会按照配置执行，在install的过程中执行，生成finagle-thrift所需要的java文件 -->
+				<executions>
+					<execution>
+						<id>thrift-sources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+
+
+
+		<pluginManagement>
+			<plugins>
+				<!-- This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<!-- 补充 twitter 提供的finagle-thrift生成工具 的插件 -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.twitter</groupId>
+										<artifactId>scrooge-maven-plugin</artifactId>
+										<versionRange>[17.12.0,)</versionRange>
+										<goals>
+											<goal>compile</goal>
+											<goal>testCompile</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+
+	</build>
+</project>

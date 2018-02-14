@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+    	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+
+    <!-- finagle thrift server 的 基本配置 -->
+    <bean id="ftsConfig" class="com.sauzny.fts.FtsConfig">
+        <property name="serviceHandle" value="com.sauzny.blacksmith.services.ServiceHandle"/>
+        <property name="name" value="blacksmith"/>
+        <property name="port" value="50002"/>
+        <property name="requestTimeout" value="3000"/>
+        <property name="version" value="1.0"/>
+        <property name="keepAlive" value="true"/>
+    </bean>
+    
+</beans>
