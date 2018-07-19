@@ -1,0 +1,25 @@
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+
+/target
+/.settings
+.project
+.classpath
+
+
+#thrift
+/src/main/thrift/thrift-0.9.3.exe
+/src/main/thrift/thrift.exe
+/src/main/thrift/gen*
+/src/main/java/com/sauzny/thrift

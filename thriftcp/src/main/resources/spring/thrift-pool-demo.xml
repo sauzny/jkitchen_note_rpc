@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+				http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+				http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
+	default-lazy-init="true">
+	
+	<context:component-scan base-package="com.sauzny" />
+
+	<bean id="connectionProvider" class="com.sauzny.thriftcp.ConnectionProviderImpl">
+	
+		<!-- thrift 客户端使用的参数 -->
+		<property name="serviceIP" value="127.0.0.1" /> 
+		<property name="servicePort" value="50001" />
+		<property name="conTimeOut" value="5000" />
+		
+		<!-- thrift pool 使用的参数 -->
+		<property name="maxTotal" value="8" />
+		<property name="maxIdle" value="4" />
+		<property name="minIdle" value="4" />
+		<property name="maxWaitMillis" value="10000" />
+		
+		<!-- 
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="true" />
+		<property name="testWhileIdle" value="true" />
+		 -->
+		 
+	</bean>
+	
+	<bean id="connectionManager" class="com.sauzny.thriftcp.ConnectionManager">
+		<property name="connectionProvider" ref="connectionProvider" />
+	</bean>
+	
+	
+</beans>
